@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Belt reviewer</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/books">Home</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/books">Back to reviews </a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/logout">Log Out</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    <main class="container">
+      <h1>Hello, {{request.session.name}}!</h1>
+      <div class="row">
+        <h2>Add a new book title and review:</h2>
+        {% if messages %}
+        <div class="row">
+          {% for message in messages %}
+          <p class="col-md-12">{{message}}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <form action="/process" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="title">Title:</label>
+            <input class="form-control" type="text" name="title">
+          </div>
+          <div class="form-group">
+            <label for="aname">Name</label>
+            <input class="form-control" type="text" name="aname">
+          </div>
+          <div class="form-group">
+            <label for="review">Review:</label>
+            <textarea class="form-control" name="review" rows="5" cols="80"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="rating">Rating</label>
+            <select class="form-control" name="rating">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+          <button class="btn btn-info" type="submit" name="button">Sumbit Review</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

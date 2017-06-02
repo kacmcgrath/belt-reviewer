@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Belt Reviewer</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header class="jumbotron">
+        <h1>Belt Reviewer</h1>
+      </header>
+      <main class="row">
+        {% if messages %}
+        <div class="row">
+          {% for message in messages %}
+          <p class="col-md-12">{{message}}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <div class="col-md-6">
+          <h2>Registration</h2>
+          <form action="/register" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="fname">First Name:</label>
+              <input class="form-control" type="text" name="fname">
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name:</label>
+              <input class="form-control" type="text" name="lname">
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input class="form-control" type="text" name="email">
+            </div>
+            <div class="form-group">
+              <label for="pword">Password:</label>
+              <input class="form-control" type="password" name="pword">
+            </div>
+            <div class="form-group">
+              <label for="conf_pword">Confirm Password:</label>
+              <input class="form-control" type="password" name="conf_pword">
+            </div>
+            <button class="btn btn-primary" type="submit" name="button">Submit</button>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <h2>Login</h2>
+          <form action="/login" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input class="form-control" type="text" name="email">
+            </div>
+            <div class="form-group">
+              <label for="pword">Password:</label>
+              <input class="form-control" type="password" name="pword">
+            </div>
+            <button class="btn btn-primary" type="submit" name="button">Submit</button>
+          </form>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

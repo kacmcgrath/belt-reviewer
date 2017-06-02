@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Belt reviewer</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/books">Home</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/add">Add a review</a></li>
+          </ul>
+          {% if request.session.user_id %}
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/logout">Log Out</a></li>
+          </ul>
+          {% endif %}
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    <main class="container-fluid">
+      <h1>Hello, {{request.session.name}}!</h1>
+      <div class="row">
+        <!-- Display 10 most recent reviews -->
+        <section class="col-md-6">
+          <h2>Recent Reviews</h2>
+          {% for review in reviews %}
+            <div>
+              <h2><a href="/book/{{ review.book.id }}">{{ review.book.title }}</a></h2>
+              <p>Rating: {{ review.rating }} stars</p>
+              <p><a href="/user/{{ review.reviewer.id }}">{{ review.reviewer.fname }}</a> says: {{ review.review }}</p>
+              <p>Posted on {{ review.created_at }}</p>
+            </div>
+          {% endfor %}
+        </section>
+        <!-- Display all other reviews -->
+        <section class="col-md-6">
+          <h2>Other Books with Reviews</h2>
+          {% for review in other_reviews %}
+              <h3><a href="/book/{{ review.book.id }}">{{ review.book.title }}</a></h3>
+          {% endfor %}
+        </section>
+
+      </div>
+    </main>
+  </body>
+</html>
